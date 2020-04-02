@@ -34,14 +34,20 @@ def select_all():
         with closing(conn.cursor()) as c:
             sql = f'SELECT * FROM {model_table}'
             c.execute(sql)
-            rows = c.fetchall()
-            return [row for row in rows]
+            return c.fetchall()
 
 
 def delete(id):
     with closing(connection_db()) as conn:
         with closing(conn.cursor()) as c:
             sql = f'DELETE FROM {model_table} WHERE id = ?'
-            c.execute(sql, f'{id}')
+            c.execute(sql, (id,))
             conn.commit()
 
+
+def select_one(id):
+    with closing(connection_db()) as conn:
+        with closing(conn.cursor()) as c:
+            sql = f'SELECT * FROM {model_table} WHERE id = ?'
+            c.execute(sql, (id,))
+            return c.fetchone()

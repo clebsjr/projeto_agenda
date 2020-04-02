@@ -26,7 +26,7 @@ def create_table():
                                     ); """
         c.execute(sql)
         conn.commit()
-
+        print(f"Tabela {model_table} criada com sucesso.")
 
 if __name__ == '__main__':
     create_table()

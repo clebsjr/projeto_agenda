@@ -1,17 +1,10 @@
 from model import *
 from Contato import Contato
 
-def linha():
+def imprimir(contato):
+    print('{:<6}{:<10}{:<20}{:<20}'.format('Id', 'Nome', 'E-mail', 'Telefone'))
     print('-' * 65)
-
-def cabecalho_tabela():
-    nome = 'Nome'
-    email = 'E-mail'
-    tel = 'Telefone'
-    linha()
-    print(f'{nome:<10} {email:30} {tel:>20}')
-    linha()
-
+    print(f'{contato.id:<6}{contato.nome:<10} {contato.email:<20} {contato.telefone:<20}')
 
 def cadastrar_contato():
     nome = input('Digite o nome: ')
@@ -21,33 +14,51 @@ def cadastrar_contato():
     contato = Contato(nome, email, telefone)
 
     insert(contato)
-    linha()
+
     print('Dados inseridos com sucesso!!')
-    linha()
+
 
 def atualizar_contato():
+    id = input('Digite o id: ')
+    c = select_one(id)
+
+    if not c:
+        print('Id não encontrado')
+        return
+
     nome = input('Digite o nome: ')
     email = input('Digite o e-mail: ')
     telefone = input('Digite o telefone: ')
 
-    contato = Contato(nome, email, telefone)
+    contato = Contato(nome, email, telefone, id)
 
     update(contato)
 
-    linha()
-    print('Dados atualizados com sucesso!!')
-    linha()
-
+    print("Contato atualizado")
+    imprimir(contato)
 
 def listar_contatos():
-    cabecalho_tabela()
-    for contato in select_all():
-        print(f'{contato[1]:<10} {contato[2]:30} {contato[3]:>20}')
-    linha()
+    lista = select_all()
+    print('{:<6}{:<10}{:<20}{:<20}'.format('Id', 'Nome', 'E-mail', 'Telefone'))
+    print('-' * 65)
+    for contato in lista:
+        print(f'{contato[0]:<6}{contato[1]:<10} {contato[2]:<20} {contato[3]:<20}')
+    print('-' * 65)
 
 
 def deletar_contato():
-    pass
+    id = input('Digite o id: ')
+    c = select_one(id)
+
+    if not c:
+        print('Id não encontrado')
+        return
+
+    delete(id)
+
+    print('Contato deletado')
+
+    listar_contatos()
 
 
 def main():
@@ -79,4 +90,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
