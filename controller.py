@@ -1,17 +1,21 @@
 from model import *
 from Contato import Contato
 
+
 def imprimir(contato):
     print('{:<6}{:<10}{:<20}{:<20}'.format('Id', 'Nome', 'E-mail', 'Telefone'))
     print('-' * 65)
     print(f'{contato.id:<6}{contato.nome:<10} {contato.email:<20} {contato.telefone:<20}')
 
-def cadastrar_contato():
-    nome = input('Digite o nome: ')
-    email = input('Digite o e-mail: ')
-    telefone = input('Digite o telefone: ')
 
-    contato = Contato(nome, email, telefone)
+def cadastrar_contato():
+    first_name = input('Digite o primeiro nome: ')
+    last_name = input('Digite o primeiro nome: ')
+    email = input('Digite o e-mail: ')
+    phone = input('Digite o telefone (somente números): ')
+
+    name = first_name + ' ' + last_name
+    contato = Contato(name, email, phone)
 
     insert(contato)
 
@@ -26,16 +30,17 @@ def atualizar_contato():
         print('Id não encontrado')
         return
 
-    nome = input('Digite o nome: ')
+    name = input('Digite o primeiro nome: ')
     email = input('Digite o e-mail: ')
-    telefone = input('Digite o telefone: ')
+    phone = input('Digite o telefone (somente números): ')
 
-    contato = Contato(nome, email, telefone, id)
+    contato = Contato(name, email, phone, id)
 
     update(contato)
 
     print("Contato atualizado")
     imprimir(contato)
+
 
 def listar_contatos():
     lista = select_all()

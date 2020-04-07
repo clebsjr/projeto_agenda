@@ -11,7 +11,7 @@ def insert(contato):
                     INSERT INTO {model_table} (nome, email, telefone)
                     VALUES (?,?,?)"""
 
-            c.execute(sql, (contato.nome, contato.email, contato.telefone))
+            c.execute(sql, (contato.name, contato.email, contato.phone))
             conn.commit()
 
 
@@ -25,7 +25,7 @@ def update(contato):
                                         telefone = ?
                     WHERE id = ?"""
 
-            c.execute(sql, (contato.nome, contato.email, contato.telefone, contato.id))
+            c.execute(sql, (contato.name, contato.email, contato.phone, contato.id))
             conn.commit()
 
 
