@@ -5,6 +5,3 @@ class Contato():
         self.nome = nome
         self.email = email
         self.telefone = telefone
-        
-        
-    

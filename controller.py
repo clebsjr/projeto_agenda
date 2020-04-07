@@ -1,11 +1,13 @@
 from model import *
 from Contato import Contato
+from prettytable import PrettyTable
 
 
-def imprimir(contato):
-    print('{:<6}{:<10}{:<20}{:<20}'.format('Id', 'Nome', 'E-mail', 'Telefone'))
-    print('-' * 65)
-    print(f'{contato.id:<6}{contato.nome:<10} {contato.email:<20} {contato.telefone:<20}')
+def imprimir_contato(contato):
+    table = PrettyTable()
+    table.field_names = ['Id', 'Nome', 'E-mail', 'Telefone']
+    table.add_row([contato.id, contato.nome, contato.email, contato.phone])
+    print(table)
 
 
 def cadastrar_contato():
@@ -39,16 +41,18 @@ def atualizar_contato():
     update(contato)
 
     print("Contato atualizado")
-    imprimir(contato)
+    imprimir_contato(contato)
 
 
 def listar_contatos():
     lista = select_all()
-    print('{:<6}{:<10}{:<20}{:<20}'.format('Id', 'Nome', 'E-mail', 'Telefone'))
-    print('-' * 65)
+    table = PrettyTable()
+    table.field_names = ['Id', 'Nome', 'E-mail', 'Telefone']
+
     for contato in lista:
-        print(f'{contato[0]:<6}{contato[1]:<10} {contato[2]:<20} {contato[3]:<20}')
-    print('-' * 65)
+        table.add_row([contato[0], contato[1], contato[2], contato[3]])
+
+    print(table)
 
 
 def deletar_contato():
